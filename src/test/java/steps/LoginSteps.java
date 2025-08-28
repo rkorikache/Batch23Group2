@@ -5,10 +5,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.chrome.ChromeDriver;
+import utils.CommonMethods;
 
 import java.time.Duration;
 
-public class LoginSteps extends utils.CommonMethods {
+public class LoginSteps extends CommonMethods {
     @Given("user is navigated to HRMS application")
     public void user_is_navigated_to_hrms_application() {
         driver = new ChromeDriver();
