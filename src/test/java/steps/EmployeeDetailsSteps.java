@@ -1,6 +1,7 @@
 package steps;
 
 import pages.EmployeeDetailsPage;
+import pages.LoginPage;
 import utils.CommonMethods;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -35,8 +36,8 @@ public class EmployeeDetailsSteps extends CommonMethods {
 
     @Then("user is successfully logged in")
     public void user_is_successfully_logged_in() {
-        loginPage loginPage;
-        Assert.assertTrue(loginPage.welcomeMessageLoc.isDisplayed());
+        LoginPage loginPage;
+        Assert.assertTrue(LoginPage.welcomeMessageLoc.isDisplayed());
         String value = loginPage.welcomeMessageLoc.getText();
         Assert.assertEquals("Welcome Admin", value);
         System.out.println("Test passed");

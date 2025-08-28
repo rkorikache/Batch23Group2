@@ -1,5 +1,6 @@
 package utils;
 
+import pages.EmployeeDetailsPage;
 import pages.LoginPage;
 import pages.AddEmployeePage;
 import pages.SearchEmployeePage;
@@ -10,12 +11,14 @@ public class PageInitialiser {
     public static LoginPage loginPage;
     public static AddEmployeePage addEmployeePage;
     public static SearchEmployeePage searchEmployeePage;
+    public static EmployeeDetailsPage employeeDetailsPage;
 
 
     public static void initializePageObjects(){
         loginPage = new LoginPage();
         addEmployeePage = new AddEmployeePage();
         searchEmployeePage = new SearchEmployeePage();
+        employeeDetailsPage = new EmployeeDetailsPage();
 
 
     }
