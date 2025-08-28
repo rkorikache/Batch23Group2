@@ -19,6 +19,8 @@ public class LoginSteps extends utils.CommonMethods {
     @When("user enters username and password")
     public void user_enters_username_and_password() {
         loginPage.userNameField.sendKeys("admin");
+        loginPage.passwordField.sendKeys("Hum@nhrm123");
+
     }
     @When("user clicks on login button")
     public void user_clicks_on_login_button() {
