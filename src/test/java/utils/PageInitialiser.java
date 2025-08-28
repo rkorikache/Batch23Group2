@@ -1,23 +1,21 @@
 package utils;
 
-import Pages.EmployeeDetailsPage;
-import pages.AddEmployeePage;
 import pages.LoginPage;
+import pages.AddEmployeePage;
 import pages.SearchEmployeePage;
 
 public class PageInitialiser {
 
 
-    public static LoginPage LoginPage;
-    public static addEmployeePage addEmployeePage;
-    public static searchEmployeePage searchEmployeePage;
+    public static LoginPage loginPage;
+    public static AddEmployeePage addEmployeePage;
+    public static SearchEmployeePage searchEmployeePage;
 
 
     public static void initializePageObjects(){
-        LoginPage = new LoginPage();
-        addEmployeePage = new addEmployeePage();
-        searchEmployeePage = new searchEmployeePage();
-        EmployeeDetailsPage = new EmployeeDetailsPage();
+        loginPage = new LoginPage();
+        addEmployeePage = new AddEmployeePage();
+        searchEmployeePage = new SearchEmployeePage();
 
 
     }
