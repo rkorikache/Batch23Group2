@@ -17,6 +17,42 @@ import java.time.Duration;
 
 public class AddEmployeeSteps extends CommonMethods {
 
+    @When("user enters valid username and password")
+    public void user_enters_valid_username_and_password() {
+        loginPage.userNameField.sendKeys("admin");
+        loginPage.passwordField.sendKeys("Hum@nhrm123");
+    }
+
+    @Then("user is able to see dashboard page")
+    public void user_is_able_to_see_dashboard_page() {
+        System.out.println("Logged in");
+    }
+
+    @When("user clicks on the PIM option")
+    public void user_clicks_on_the_pim_option() {
+        addEmployeePage.menu_pim_viewPimModule.click();
+    }
+
+    @When("user clicks on Add employee option")
+    public void user_clicks_on_add_employee_option() {
+        addEmployeePage.menu_pim_addEmployee.click();
+    }
+
+    @When("user enters firstname and lastname")
+    public void user_enters_firstname_and_lastname() {
+        sendText("Diana", addEmployeePage.firstName);
+        sendText("Testing", addEmployeePage.lastName);
+    }
+
+    @When("user clicks on save button")
+    public void user_clicks_on_save_button() {
+        addEmployeePage.saveButton.click();
+    }
+    @Then("employee added successfully")
+    public void employee_added_successfully() {
+        System.out.println("Employee added successfully");
+    }
+
     @When("user enters firstname, middlename and lastname")
     public void user_enters_firstname_middlename_and_lastname() {
         sendText("Livia", addEmployeePage.firstName);
@@ -36,8 +72,8 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText("errorTesting", addEmployeePage.firstName);
     }
 
-    @Then("an error message should be appear")
-    public void an_error_message_should_be_appear() {
+    @Then("an error message should appear")
+    public void an_error_message_should_appear() {
         System.out.println("Required error message appeared under the Last Name filed,it is clear and well-visible.  ");
     }
 
