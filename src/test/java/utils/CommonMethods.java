@@ -136,11 +136,12 @@ public class CommonMethods extends PageInitialiser {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
-    public static void waitAndClick(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // increase wait time if needed
+    public static void waitAndClick(By locator, int timeoutSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
+
 
 
     public static Map<String, Object> scenarioContext = new HashMap<>();
