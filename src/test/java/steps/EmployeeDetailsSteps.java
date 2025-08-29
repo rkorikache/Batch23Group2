@@ -19,7 +19,8 @@ public class EmployeeDetailsSteps extends CommonMethods {
 
     @When("user clicks on PIM option")
     public void user_clicks_on_pim_option() {
-        waitAndClick(By.id("menu_pim_viewPimModule"), 30);
+        WebElement pimoption =driver.findElement(By.id("menu_pim_viewPimModule"));
+        click(pimoption);
     }
 
     @When("user clicks on Employee List")
