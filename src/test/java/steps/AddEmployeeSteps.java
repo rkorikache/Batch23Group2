@@ -4,16 +4,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AddEmployeePage;
-import pages.LoginPage;
 import utils.CommonMethods;
 import utils.ConfigReader;
 
-import java.sql.*;
-import java.time.Duration;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class AddEmployeeSteps extends CommonMethods {
 
@@ -59,13 +58,11 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText("Livia", addEmployeePage.firstName);
         sendText("Anna", addEmployeePage.middleName);
         sendText("Test", addEmployeePage.lastName);
-
     }
 
     @When("enters an employeeId manually")
     public void enters_an_employee_id_manually() {
         sendText("88881111", addEmployeePage.employeeId);
-
     }
 
     @When("user enters only firstname")
@@ -75,7 +72,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @Then("an error message should appear")
     public void an_error_message_should_appear() {
-        System.out.println("Required error message appeared under the Last Name filed,it is clear and well-visible.  ");
+        System.out.println("Required error message appeared under the Last Name field. It is clear and well-visible.");
     }
 
     @Given("user is logged in with valid credentials")
@@ -85,44 +82,45 @@ public class AddEmployeeSteps extends CommonMethods {
 
         sendText(username, loginPage.userNameField);
         sendText(password, loginPage.passwordField);
-        click(loginPage.loginButton);  // If you have a click method for login
+        click(loginPage.loginButton);
 
         System.out.println("User is logged in using credentials from config file.");
     }
 
-
     @When("user navigates to Add Employee page")
     public void user_navigates_to_add_employee_page() {
-        addEmployeePage.menu_pim_viewPimModule.click();
-        addEmployeePage.menu_pim_addEmployee.click();
+        click(addEmployeePage.menu_pim_viewPimModule);
+        click(addEmployeePage.menu_pim_addEmployee);
     }
 
     @When("user enters firstname {string} and lastname {string}")
-    public void user_enters_firstname_and_lastname(String firstName, String lastName) {
+    public void user_enters_dynamic_firstname_and_lastname(String firstName, String lastName) {
         sendText(firstName, addEmployeePage.firstName);
         sendText(lastName, addEmployeePage.lastName);
 
-        // Optional: Store values for verification later
-        CommonMethods.scenarioContext.set("firstName", firstName);
-        CommonMethods.scenarioContext.set("lastName", lastName);
+        // Save for database validation
+        scenarioContext.put("firstName", firstName);
+        scenarioContext.put("lastName", lastName);
 
-        // Save employeeId for DB check
+        // Store employee ID before saving
         String empId = addEmployeePage.employeeId.getAttribute("value");
-        CommonMethods.scenarioContext.set("employeeId", empId);
+        scenarioContext.put("employeeId", empId);
 
-        addEmployeePage.saveButton.click();
+        click(addEmployeePage.saveButton);
     }
 
     @Then("the employee record should exist in the database with firstname {string} and lastname {string}")
-    public void the_employee_record_should_exist_in_the_database_with_firstname_and_lastname(String expectedFirstName, String expectedLastName) {
-        String empId = (String) CommonMethods.scenarioContext.get("employeeId");
+    public void the_employee_record_should_exist_in_the_database(String expectedFirstName, String expectedLastName) {
+        String empId = (String) scenarioContext.get("employeeId");
 
-        String dbUrl = ConfigReader.getPropertyValue("dbURL");
-        String dbUsername = ConfigReader.getPropertyValue("dbUsername");
-        String dbPassword = ConfigReader.getPropertyValue("dbPassword");
+        // Corrected usage: ConfigReader.read(...) instead of getPropertyValue
+        String dbUrl = ConfigReader.read("dbURL");
+        String dbUsername = ConfigReader.read("dbUsername");
+        String dbPassword = ConfigReader.read("dbPassword");
 
         try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-             PreparedStatement stmt = conn.prepareStatement("SELECT first_name, last_name FROM hs_hr_employees WHERE employee_id = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT first_name, last_name FROM hs_hr_employees WHERE employee_id = ?")) {
 
             stmt.setString(1, empId);
             ResultSet rs = stmt.executeQuery();
@@ -132,8 +130,9 @@ public class AddEmployeeSteps extends CommonMethods {
                 String actualLastName = rs.getString("last_name");
 
                 if (!expectedFirstName.equals(actualFirstName) || !expectedLastName.equals(actualLastName)) {
-                    throw new AssertionError("Database record mismatch: Expected (" + expectedFirstName + " " + expectedLastName +
-                            ") but found (" + actualFirstName + " " + actualLastName + ")");
+                    throw new AssertionError("Database record mismatch: Expected (" +
+                            expectedFirstName + " " + expectedLastName + "), but found (" +
+                            actualFirstName + " " + actualLastName + ")");
                 }
             } else {
                 throw new AssertionError("No employee record found with ID: " + empId);
@@ -145,4 +144,3 @@ public class AddEmployeeSteps extends CommonMethods {
         }
     }
 }
-
