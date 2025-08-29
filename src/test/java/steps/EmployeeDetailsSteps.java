@@ -34,16 +34,17 @@ public class EmployeeDetailsSteps extends CommonMethods {
         click(employeeName);
     }
 
+    @When("user clicks on the search button")
+    public void user_clicks_on_the_search_button() {
+        click(employeeDetailsPage.searchEmployeeDetailsBtn);
+    }
     @When("user enters firstname, lastname, and employeeId")
     public void user_enters_firstname_lastname_and_employee_id() {
         sendText("Nhu Nguyen", employeeDetailsPage.searchEmployeeName);
         sendText("119798A", employeeDetailsPage.searchEmployeeId);
     }
 
-    @When("user clicks on the search button")
-    public void user_clicks_on_the_search_button() {
-        click(employeeDetailsPage.searchEmployeeDetailsBtn);
-    }
+
 
     @When("user selects the employee from the search result")
     public void user_selects_the_employee_from_the_search_result() {

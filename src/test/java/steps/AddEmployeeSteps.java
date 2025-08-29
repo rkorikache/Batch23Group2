@@ -19,7 +19,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password() {
-        sendText(ConfigReader.read("userName"), loginPage.userNameField);
+        sendText(ConfigReader.read("username"), loginPage.userNameField);
         sendText(ConfigReader.read("password"), loginPage.passwordField);
 
     }

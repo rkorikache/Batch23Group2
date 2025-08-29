@@ -2,9 +2,9 @@ Feature: Add employee scenarios
 
   Background:
     When user enters valid username and password
-    And user clicks on login button
+    And user clicks on login button in add employee flow
     Then user is able to see dashboard page
-    When user clicks on the PIM option
+    When admin user clicks on on PIM option
     And user clicks on Add employee option
 
   @Diana @withoutID
@@ -24,10 +24,12 @@ Feature: Add employee scenarios
   Scenario: Error message appearance
     When user enters only firstname
     And user clicks on save button
-    Then an error message should appear
+    Then an error message should be appear
+
 
   @Diana @Verify
-  Scenario: Verify employee record exists in the database
-    Given the employee with ID "88881111" is present in the system
-    When I query the database for employee with ID "88881111"
-    Then I should get the employee record with name "Livia"
+  Scenario: Verify employee record from the database
+    And user enters firstname and lastname
+    And user captures the employee id
+    And user clicks on save button
+    Then verify the employee is added in the database using id

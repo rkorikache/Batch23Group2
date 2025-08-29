@@ -12,7 +12,7 @@ Feature: Change Employee Personal Details
   Scenario: Employee edits personal information
     And user clicks on Employee List
     And user clicks on Employee Name
-    And user enters firstname, lastname, and employeeId
+    And user enters employee name on the Employee Name search textbox
     And user clicks on the search button
     And user selects the employee from the search result
     Then user successfully accesses user personal details
