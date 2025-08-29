@@ -19,9 +19,8 @@ public class EmployeeDetailsSteps extends CommonMethods {
 
     @When("user clicks on PIM option")
     public void user_clicks_on_pim_option() {
-        waitAndClick(By.id("menu_pim_viewPimModule"), 10);
+        waitAndClick(By.id("menu_pim_viewPimModule"), 30);
     }
-
 
     @When("user clicks on Employee List")
     public void user_clicks_on_employee_list() {

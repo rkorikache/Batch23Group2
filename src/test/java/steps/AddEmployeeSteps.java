@@ -95,4 +95,36 @@ public class AddEmployeeSteps extends CommonMethods {
         System.out.println("Required error message appeared under the Last Name field. It is clear and well-visible.");
     }
 
+    private String employeeId;
+    private ResultSet resultSet;
+
+    @Given("the employee with ID {string} is present in the system")
+    public void the_employee_with_ID_is_present_in_the_system(String id) {
+        this.employeeId = id;
+
+    }
+
+    @When("I query the database for employee with ID {string}")
+    public void i_query_the_database_for_employee_with_ID(String id) throws SQLException, SQLException {
+        String dbURL="jdbc:mysql://3.239.253.255:3306/syntaxhrm_mysql";
+        String dbUserName="syntax_hrm";
+        String dbPassword="syntaxhrm123";
+        Connection connection = DriverManager.getConnection(dbURL, dbUserName, dbPassword);
+        PreparedStatement statement = connection.prepareStatement("Select * from person");
+        statement.setString(1, id);
+        resultSet = statement.executeQuery();
+    }
+
+    @Then("I should get the employee record with name {string}")
+    public void i_should_get_the_employee_record_with_name(String expectedName) throws SQLException {
+        if (resultSet.next()) {
+            String actualName = resultSet.getString("Livia");
+            if (!expectedName.equals(actualName)) {
+                throw new AssertionError("Expected name: " + expectedName + ", but got: " + actualName);
+            }
+        } else {
+            throw new AssertionError("No employee record found for ID: " + employeeId);
+
+        }
+    }
 }
