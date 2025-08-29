@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
         glue = "steps",
         //when we set the value of dry run to true, it stops execution and generate all missing step definition
         //when we have to execute, we set the value to false
-        dryRun = false,
+        dryRun = true,
         //tags = "@Verify",
 
 

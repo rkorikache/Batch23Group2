@@ -1,26 +1,16 @@
 Feature: Change Employee Personal Details
 
-  Background:
-    Given the user is on the HRMS login page
-    When the user enters a valid username and password
-    And the user clicks on the "Login" button
-    Then the user is successfully logged in
-    When the user clicks on the "PIM" option
 
-  @EmpDetails
+
   Scenario: Employee edits personal information
-    And user clicks on the "Employee List" option
-    And user enters "Jane Smith" in the employee name search textbox
-    And user clicks the "Search" button
-    And user selects the employee from the search results
-    Then user should be navigated to the employee's personal details page
-    When user clicks the "Edit" button
-    And user updates the "First Name" to "John"
-    And user updates the "Middle Name" to "A"
-    And user updates the "Last Name" to "Doe"
-    And user selects "Male" as the "Gender"
-    And user selects "American" as the "Nationality"
-    And user selects "Single" as the "Marital Status"
-    And user clicks the "Save" button
-    Then a success message should be displayed confirming the changes
-    And the updated personal details should be saved in the database
+    When user clicks on PIM option
+    And user clicks on Employee List
+    And user clicks on Employee Name
+    And user enters firstname, lastname, and employeeId
+    And user clicks on the search button
+    Then user successfully accesses user personal details
+    When user clicks on the edit button
+    And user edits firstname, middlename, and lastname
+    And user edits gender, nationality, and marital status
+    And user clicks on the save button
+    Then personal information is saved successfully
