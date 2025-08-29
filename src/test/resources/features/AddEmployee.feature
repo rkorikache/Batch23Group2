@@ -1,9 +1,10 @@
 Feature: Add employee scenarios
 
   Background:
-    When user enters valid username and password
-    And user clicks on login button in add employee flow
-    Then user is able to see dashboard page
+
+    When user enters username and password
+    And user clicks on login button
+    Then user is successfully logged in
     When admin user clicks on on PIM option
     And user clicks on Add employee option
 

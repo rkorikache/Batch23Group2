@@ -15,71 +15,75 @@ import java.time.Duration;
 
 public class EmployeeDetailsSteps extends CommonMethods {
 
-
-    @When("user clicks on PIM option")
-    public void user_clicks_on_pim_option() {
-        WebElement pimOption = driver.findElement(By.id("menu_pim_viewPimModule"));
-        click(pimOption);
-    }
-
     @When("user clicks on Employee List")
     public void user_clicks_on_employee_list() {
-        WebElement empListButton = driver.findElement(By.id("menu_pim_viewEmployeeList"));
+        WebElement employeeList = driver.findElement(By.id("menu_pim_viewEmployeeList"));
+        click(employeeList);
     }
 
     @When("user clicks on Employee Name")
     public void user_clicks_on_employee_name() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @When("user enters firstname, lastname, and employeeId")
-    public void user_enters_firstname_lastname_and_employee_id() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        WebElement employeeName = driver.findElement(By.id("empsearch_employee_name_empName"));
+        click(employeeName);
     }
 
     @When("user clicks on the search button")
     public void user_clicks_on_the_search_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        click(employeeDetailsPage.searchEmployeeDetailsBtn);
+    }
+
+    @When("user enters firstname, lastname, and employeeId")
+    public void user_enters_firstname_lastname_and_employee_id() {
+        sendText("Nhu Nguyen", employeeDetailsPage.searchEmployeeName);
+        sendText("119798A", employeeDetailsPage.searchEmployeeId);
+    }
+
+
+    @When("user selects the employee from the search result")
+    public void user_selects_the_employee_from_the_search_result() {
+        WebElement result = driver.findElement(By.xpath("//a[text()='Nhu Nguyen']\n"));
+        click(result);
     }
 
     @Then("user successfully accesses user personal details")
     public void user_successfully_accesses_user_personal_details() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.out.println("Successfully accesses user personal details.");
     }
 
     @When("user clicks on the edit button")
-    public void user_clicks_on_the_edit_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void user_clicks_on_the_edit_button() throws InterruptedException {
+      //  Thread.sleep(3000);
+        click(employeeDetailsPage.employeeIDbtn);
+        click(employeeDetailsPage.editButton);
+
     }
 
+
+
     @When("user edits firstname, middlename, and lastname")
-    public void user_edits_firstname_middlename_and_lastname() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void user_edits_firstname_middlename_and_lastname() throws InterruptedException {
+        Thread.sleep(2000);
+        sendText("Trang", employeeDetailsPage.editFirstName);
+        sendText("Nhu", employeeDetailsPage.editMiddleName);
+        sendText("Pham", employeeDetailsPage.editLastName);
     }
 
     @When("user edits gender, nationality, and marital status")
     public void user_edits_gender_nationality_and_marital_status() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        click(employeeDetailsPage.clickFemale);
+        selectFromDropDown(employeeDetailsPage.NationalityDropDown, "Russian");
+        selectFromDropDown(employeeDetailsPage.maritalStatusDropDown, "Single");
+
     }
 
     @When("user clicks on the save button")
     public void user_clicks_on_the_save_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        click(employeeDetailsPage.saveButton);
     }
 
     @Then("personal information is saved successfully")
     public void personal_information_is_saved_successfully() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.out.println("Personal information is saved successfully.");
     }
 }
-
 

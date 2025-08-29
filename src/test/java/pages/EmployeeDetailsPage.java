@@ -43,7 +43,10 @@ public class EmployeeDetailsPage extends CommonMethods {
     @FindBy(id = "btnSave")
     public WebElement saveButton;
 
-    @FindBy(id = "btnSave")
+    @FindBy( xpath= "//table[@id='resultTable']/tbody/tr[1]/td[2]/a")
+    public WebElement employeeIDbtn;
+
+    @FindBy(xpath = "//input[@value='Edit']")
     public WebElement editButton;
 
     public EmployeeDetailsPage() {

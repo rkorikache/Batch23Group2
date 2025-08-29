@@ -20,31 +20,6 @@ public class AddEmployeeSteps extends CommonMethods {
     AddEmployeePage addEmployeePage = new AddEmployeePage();
     LoginPage loginPage = new LoginPage();
 
-    @Given("the user is on the HRMs login page")
-    public void the_user_is_on_the_hr_ms_login_page() {
-
-        driver = new ChromeDriver();
-        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
-        driver.manage().window().maximize();
-    }
-
-    @When("user enters valid username and password")
-    public void user_enters_valid_username_and_password() {
-        sendText(ConfigReader.read("username"), loginPage.userNameField);
-        sendText(ConfigReader.read("password"), loginPage.passwordField);
-
-    }
-
-    @When("user clicks on login button in add employee flow")
-    public void user_clicks_on_login_button_add_employee() {
-        loginPage.loginButton.click();
-    }
-
-    @Then("user is able to see dashboard page")
-    public void user_is_able_to_see_dashboard_page() {
-        System.out.println("Logged in");
-    }
 
     @When("admin user clicks on on PIM option")
     public void admin_user_clicks_on_pim_option() {

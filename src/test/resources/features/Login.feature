@@ -1,7 +1,7 @@
 Feature: Login feature
 
   Background:
-    Given the user is on the HRMs login page
+    #Given the user is on the HRMs login page
 
 
   @Login
