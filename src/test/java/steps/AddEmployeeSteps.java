@@ -13,8 +13,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddEmployeeSteps extends CommonMethods {
+
+    // ✅ Add scenarioContext for storing data across steps
+    private Map<String, Object> scenarioContext = new HashMap<>();
 
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password() {
@@ -29,12 +34,12 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @When("user clicks on the PIM option")
     public void user_clicks_on_the_pim_option() {
-        addEmployeePage.menu_pim_viewPimModule.click();
+        click(addEmployeePage.menu_pim_viewPimModule);
     }
 
     @When("user clicks on Add employee option")
     public void user_clicks_on_add_employee_option() {
-        addEmployeePage.menu_pim_addEmployee.click();
+        click(addEmployeePage.menu_pim_addEmployee);
     }
 
     @When("user enters firstname and lastname")
@@ -45,7 +50,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @When("user clicks on save button")
     public void user_clicks_on_save_button() {
-        addEmployeePage.saveButton.click();
+        click(addEmployeePage.saveButton);
     }
 
     @Then("employee added successfully")
@@ -113,7 +118,6 @@ public class AddEmployeeSteps extends CommonMethods {
     public void the_employee_record_should_exist_in_the_database(String expectedFirstName, String expectedLastName) {
         String empId = (String) scenarioContext.get("employeeId");
 
-        // Corrected usage: ConfigReader.read(...) instead of getPropertyValue
         String dbUrl = ConfigReader.read("dbURL");
         String dbUsername = ConfigReader.read("dbUsername");
         String dbPassword = ConfigReader.read("dbPassword");
