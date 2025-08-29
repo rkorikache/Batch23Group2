@@ -10,12 +10,12 @@ import utils.CommonMethods;
 import java.time.Duration;
 
 public class LoginSteps extends CommonMethods {
-    @Given("user is navigated to HRMS application")
-    public void user_is_navigated_to_hrms_application() {
+    @Given("the user is on the HRMs login page")
+    public void the_user_is_on_the_hr_ms_login_page() {
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
         driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+        driver.manage().window().maximize();
     }
     @When("user enters username and password")
     public void user_enters_username_and_password() {

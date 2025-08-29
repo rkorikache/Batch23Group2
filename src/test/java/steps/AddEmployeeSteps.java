@@ -1,5 +1,7 @@
 package steps;
 
+import io.cucumber.java.en.Given;
+import org.openqa.selenium.chrome.ChromeDriver;
 import pages.LoginPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,12 +12,22 @@ import utils.ConfigReader;
 
 
 import java.sql.*;
+import java.time.Duration;
 
 public class AddEmployeeSteps extends CommonMethods {
 
 
     AddEmployeePage addEmployeePage = new AddEmployeePage();
     LoginPage loginPage = new LoginPage();
+
+    @Given("the user is on the HRMs login page")
+    public void the_user_is_on_the_hr_ms_login_page() {
+
+        driver = new ChromeDriver();
+        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
+        driver.manage().window().maximize();
+    }
 
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password() {
