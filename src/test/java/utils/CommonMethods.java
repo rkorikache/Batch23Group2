@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommonMethods extends PageInitialiser {
 
@@ -123,6 +125,9 @@ public class CommonMethods extends PageInitialiser {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
     }
+
+    public static Map<String, Object> scenarioContext = new HashMap<>();
+
 
 
 }

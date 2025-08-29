@@ -27,8 +27,13 @@ Feature: Add employee scenarios
     Then an error message should appear
 
   @Diana @Verify
-  Scenario: Verify employee record in the database
-    Given the employee with ID "88881111" is present in the system
-    When I query the database for employee with ID "88881111"
-    Then I should get the employee record with name "Livia"
+
+  Scenario: Successfully add a new employee and verify in database
+    Given user is logged in with valid credentials
+    When user navigates to Add Employee page
+    And user enters firstname "Diana" and lastname "Prince"
+    And user clicks on save button
+    Then employee added successfully
+    And I query the database for employee with ID "88881111"
+    Then the employee record should exist in the database with firstname "Diana" and lastname "Prince"
 
