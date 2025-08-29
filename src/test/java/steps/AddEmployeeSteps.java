@@ -54,11 +54,13 @@ public class AddEmployeeSteps extends CommonMethods {
     @When("user clicks on save button")
     public void user_clicks_on_save_button() {
         addEmployeePage.saveButton.click();
+
     }
 
     @Then("employee added successfully")
     public void employee_added_successfully() {
         System.out.println("Employee added successfully");
+
     }
 
     @When("user enters firstname, middlename and lastname")
