@@ -1,45 +1,32 @@
 package steps;
 
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
+import pages.LoginPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import pages.AddEmployeePage;
 import utils.CommonMethods;
 import utils.ConfigReader;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.sql.*;
 
 public class AddEmployeeSteps extends CommonMethods {
 
-    private Employee foundEmployee;
 
-    private static class Employee {
-        String id;
-        String firstName;
-        String lastName;
-
-        Employee(String id, String firstName, String lastName) {
-            this.id = id;
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-    }
-
-
-    // ✅ Add scenarioContext for storing data across steps
-    private Map<String, Object> scenarioContext = new HashMap<>();
+    AddEmployeePage addEmployeePage = new AddEmployeePage();
+    LoginPage loginPage = new LoginPage();
 
     @When("user enters valid username and password")
     public void user_enters_valid_username_and_password() {
-        loginPage.userNameField.sendKeys("admin");
-        loginPage.passwordField.sendKeys("Hum@nhrm123");
+        sendText(ConfigReader.read("userName"), loginPage.userNameField);
+        sendText(ConfigReader.read("password"), loginPage.passwordField);
+
+    }
+
+    @When("user clicks on login button in add employee flow")
+    public void user_clicks_on_login_button_add_employee() {
+        loginPage.loginButton.click();
     }
 
     @Then("user is able to see dashboard page")
@@ -47,14 +34,15 @@ public class AddEmployeeSteps extends CommonMethods {
         System.out.println("Logged in");
     }
 
-    @When("user clicks on the PIM option")
-    public void user_clicks_on_the_pim_option() {
-        click(addEmployeePage.menu_pim_viewPimModule);
+    @When("admin user clicks on on PIM option")
+    public void admin_user_clicks_on_pim_option() {
+        addEmployeePage.menu_pim_viewPimModule.click();
     }
 
     @When("user clicks on Add employee option")
     public void user_clicks_on_add_employee_option() {
-        click(addEmployeePage.menu_pim_addEmployee);
+        addEmployeePage.menu_pim_addEmployee.click();
+
     }
 
     @When("user enters firstname and lastname")
@@ -65,7 +53,7 @@ public class AddEmployeeSteps extends CommonMethods {
 
     @When("user clicks on save button")
     public void user_clicks_on_save_button() {
-        click(addEmployeePage.saveButton);
+        addEmployeePage.saveButton.click();
     }
 
     @Then("employee added successfully")
@@ -78,11 +66,13 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText("Livia", addEmployeePage.firstName);
         sendText("Anna", addEmployeePage.middleName);
         sendText("Test", addEmployeePage.lastName);
+
     }
 
     @When("enters an employeeId manually")
     public void enters_an_employee_id_manually() {
         sendText("88881111", addEmployeePage.employeeId);
+
     }
 
     @When("user enters only firstname")
@@ -90,40 +80,57 @@ public class AddEmployeeSteps extends CommonMethods {
         sendText("errorTesting", addEmployeePage.firstName);
     }
 
-    @Then("an error message should appear")
-    public void an_error_message_should_appear() {
-        System.out.println("Required error message appeared under the Last Name field. It is clear and well-visible.");
+    @Then("an error message should be appear")
+    public void an_error_message_should_be_appear() {
+        System.out.println("Required error message appeared under the Last Name filed,it is clear and well-visible.  ");
     }
 
-    private String employeeId;
-    private ResultSet resultSet;
+    String capturedEmpId;
+    String capturedFirstName;
+    String capturedLastName;
 
-    @Given("the employee with ID {string} is present in the system")
-    public void the_employee_with_ID_is_present_in_the_system(String id) {
-        this.employeeId = id;
+    @When("user captures the employee id")
+    public void user_captures_the_employee_id() {
+        capturedEmpId = addEmployeePage.employeeId.getAttribute("value");
+        capturedFirstName = addEmployeePage.firstName.getAttribute("value");
+        capturedLastName = addEmployeePage.lastName.getAttribute("value");
 
+        System.out.println("Captured ID: " + capturedEmpId);
+        System.out.println("Captured Name: " + capturedFirstName + " " + capturedLastName);
     }
 
-    @When("I query the database for employee with ID {string}")
-    public void i_query_the_database_for_employee_with_ID(String id) throws SQLException, SQLException {
-        String dbURL="jdbc:mysql://3.239.253.255:3306/syntaxhrm_mysql";
-        String dbUserName="syntax_hrm";
-        String dbPassword="syntaxhrm123";
-        Connection connection = DriverManager.getConnection(dbURL, dbUserName, dbPassword);
-        PreparedStatement statement = connection.prepareStatement("Select * from person");
-        statement.setString(1, id);
-        resultSet = statement.executeQuery();
-    }
+    @Then("verify the employee is added in the database using id")
+    public void verify_the_employee_is_added_in_the_database_using_id() {
+        try {
+            Connection conn = DriverManager.getConnection(
+                    ConfigReader.read("dbURL"),
+                    ConfigReader.read("dbUserName"),
+                    ConfigReader.read("dbPassword")
+            );
 
-    @Then("I should get the employee record with name {string}")
-    public void i_should_get_the_employee_record_with_name(String expectedName) throws SQLException {
-        if (resultSet.next()) {
-            String actualName = resultSet.getString("Livia");
-            if (!expectedName.equals(actualName)) {
-                throw new AssertionError("Expected name: " + expectedName + ", but got: " + actualName);
+            Statement stmt = conn.createStatement();
+            String query = "SELECT emp_firstname, emp_lastname FROM hs_hr_employees WHERE employee_id = '" + capturedEmpId + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            boolean recordFound = false;
+
+            while (rs.next()) {
+                String dbFirstName = rs.getString("emp_firstname");
+                String dbLastName = rs.getString("emp_lastname");
+
+                if (capturedFirstName.equals(dbFirstName) && capturedLastName.equals(dbLastName)) {
+                    recordFound = true;
+                    break;
+                }
             }
-        } else {
-            throw new AssertionError("No employee record found for ID: " + employeeId);
+
+            conn.close();
+            Assert.assertTrue("Employee record not found in DB", recordFound);
+            System.out.println("✅ Employee successfully verified in the database.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail("❌ DB Verification failed: " + e.getMessage());
 
         }
     }

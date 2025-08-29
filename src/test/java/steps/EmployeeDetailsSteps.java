@@ -47,7 +47,7 @@ public class EmployeeDetailsSteps extends CommonMethods {
 
     @When("user selects the employee from the search result")
     public void user_selects_the_employee_from_the_search_result() {
-        WebElement result = driver.findElement(By.xpath("//a[text()='Nhu Nguyen']"));
+        WebElement result = driver.findElement(By.xpath("//a[text()='Nhu Nguyen']\n"));
         click(result);
     }
 
