@@ -9,17 +9,17 @@ import utils.CommonMethods;
 public class LoginPage extends CommonMethods {
 
     @FindBy(id = "txtUsername")
-    public WebElement userNameField;
+    public static WebElement userNameField;
 
     @FindBy(id = "txtPassword")
-    public WebElement passwordField;
+    public static WebElement passwordField;
 
     @FindBy(id = "btnLogin")
-    public WebElement loginButton;
+    public static WebElement loginButton;
 
 
     @FindBy(id="welcome")
-    public WebElement welcomeMessageLoc;
+    public static WebElement welcomeMessageLoc;
 
 
     public LoginPage(){

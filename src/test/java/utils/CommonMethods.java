@@ -126,6 +126,23 @@ public class CommonMethods extends PageInitialiser {
         return sdf.format(date);
     }
 
+    public static WebElement waitForClickability(By locator, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public WebElement waitForVisibility(By locator, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public static void waitAndClick(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // increase wait time if needed
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
+
     public static Map<String, Object> scenarioContext = new HashMap<>();
 
 

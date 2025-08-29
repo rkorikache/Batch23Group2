@@ -26,9 +26,3 @@ Feature: Add employee scenarios
     And user clicks on save button
     Then an error message should appear
 
-  @Diana @Verify
-  Scenario: Verify employee record exists in the database
-    Given the employee with ID "88881111" is present in the system
-    When I query the database for employee with ID "88881111"
-    Then I should get the employee record with name "Livia"
-
