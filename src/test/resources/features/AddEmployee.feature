@@ -27,7 +27,8 @@ Feature: Add employee scenarios
     Then an error message should appear
 
   @Diana @Verify
-  Scenario: Verify employee record exists in the database
+  Scenario: Verify employee record in the database
     Given the employee with ID "88881111" is present in the system
     When I query the database for employee with ID "88881111"
     Then I should get the employee record with name "Livia"
+

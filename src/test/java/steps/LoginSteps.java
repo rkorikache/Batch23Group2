@@ -17,8 +17,9 @@ public class LoginSteps extends CommonMethods {
         driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
-    @When("user enters username and password")
-    public void user_enters_username_and_password() {
+    @When("user enters valid username and password")
+    public void user_enters_valid_username_and_password() {
+
         loginPage.userNameField.sendKeys("admin");
         loginPage.passwordField.sendKeys("Hum@nhrm123");
 

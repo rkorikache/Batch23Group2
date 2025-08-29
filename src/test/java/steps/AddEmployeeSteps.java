@@ -51,29 +51,31 @@ public class AddEmployeeSteps extends CommonMethods {
     }
 
     @When("I query the database for employee with ID {string}")
-    public void i_query_the_database_for_employee_with_ID(String id) throws SQLException, SQLException {
-        String dbURL="jdbc:mysql://3.239.253.255:3306/syntaxhrm_mysql";
-        String dbUserName="syntax_hrm";
-        String dbPassword="syntaxhrm123";
+    public void i_query_the_database_for_employee_with_ID(String id) throws SQLException {
+        String dbURL = "jdbc:mysql://3.239.253.255:3306/syntaxhrm_mysql";
+        String dbUserName = "syntax_hrm";
+        String dbPassword = "syntaxhrm123";
+
         Connection connection = DriverManager.getConnection(dbURL, dbUserName, dbPassword);
-        PreparedStatement statement = connection.prepareStatement("Select * from person");
+
+        // Use ? placeholder to insert parameter safely
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE employee_id = ?");
         statement.setString(1, id);
+
         resultSet = statement.executeQuery();
     }
 
     @Then("I should get the employee record with name {string}")
     public void i_should_get_the_employee_record_with_name(String expectedName) throws SQLException {
         if (resultSet.next()) {
-            String actualName = resultSet.getString("Livia");
+            // Use actual column name from your DB, e.g., "first_name"
+            String actualName = resultSet.getString("first_name"); // <-- replace with correct column
             if (!expectedName.equals(actualName)) {
                 throw new AssertionError("Expected name: " + expectedName + ", but got: " + actualName);
             }
         } else {
             throw new AssertionError("No employee record found for ID: " + employeeId);
-
         }
     }
 }
-
-
 
