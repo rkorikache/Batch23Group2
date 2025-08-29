@@ -18,6 +18,21 @@ import java.util.Map;
 
 public class AddEmployeeSteps extends CommonMethods {
 
+    private Employee foundEmployee;
+
+    private static class Employee {
+        String id;
+        String firstName;
+        String lastName;
+
+        Employee(String id, String firstName, String lastName) {
+            this.id = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+    }
+
+
     // ✅ Add scenarioContext for storing data across steps
     private Map<String, Object> scenarioContext = new HashMap<>();
 
@@ -80,71 +95,36 @@ public class AddEmployeeSteps extends CommonMethods {
         System.out.println("Required error message appeared under the Last Name field. It is clear and well-visible.");
     }
 
-    @Given("user is logged in with valid credentials")
-    public void user_is_logged_in_with_valid_credentials() {
-        String username = ConfigReader.read("username");
-        String password = ConfigReader.read("password");
+    private String employeeId;
+    private ResultSet resultSet;
 
-        sendText(username, loginPage.userNameField);
-        sendText(password, loginPage.passwordField);
-        click(loginPage.loginButton);
+    @Given("the employee with ID {string} is present in the system")
+    public void the_employee_with_ID_is_present_in_the_system(String id) {
+        this.employeeId = id;
 
-        System.out.println("User is logged in using credentials from config file.");
     }
 
-    @When("user navigates to Add Employee page")
-    public void user_navigates_to_add_employee_page() {
-        click(addEmployeePage.menu_pim_viewPimModule);
-        click(addEmployeePage.menu_pim_addEmployee);
+    @When("I query the database for employee with ID {string}")
+    public void i_query_the_database_for_employee_with_ID(String id) throws SQLException, SQLException {
+        String dbURL="jdbc:mysql://3.239.253.255:3306/syntaxhrm_mysql";
+        String dbUserName="syntax_hrm";
+        String dbPassword="syntaxhrm123";
+        Connection connection = DriverManager.getConnection(dbURL, dbUserName, dbPassword);
+        PreparedStatement statement = connection.prepareStatement("Select * from person");
+        statement.setString(1, id);
+        resultSet = statement.executeQuery();
     }
 
-    @When("user enters firstname {string} and lastname {string}")
-    public void user_enters_dynamic_firstname_and_lastname(String firstName, String lastName) {
-        sendText(firstName, addEmployeePage.firstName);
-        sendText(lastName, addEmployeePage.lastName);
-
-        // Save for database validation
-        scenarioContext.put("firstName", firstName);
-        scenarioContext.put("lastName", lastName);
-
-        // Store employee ID before saving
-        String empId = addEmployeePage.employeeId.getAttribute("value");
-        scenarioContext.put("employeeId", empId);
-
-        click(addEmployeePage.saveButton);
-    }
-
-    @Then("the employee record should exist in the database with firstname {string} and lastname {string}")
-    public void the_employee_record_should_exist_in_the_database(String expectedFirstName, String expectedLastName) {
-        String empId = (String) scenarioContext.get("employeeId");
-
-        String dbUrl = ConfigReader.read("dbURL");
-        String dbUsername = ConfigReader.read("dbUsername");
-        String dbPassword = ConfigReader.read("dbPassword");
-
-        try (Connection conn = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
-             PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT first_name, last_name FROM hs_hr_employees WHERE employee_id = ?")) {
-
-            stmt.setString(1, empId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                String actualFirstName = rs.getString("first_name");
-                String actualLastName = rs.getString("last_name");
-
-                if (!expectedFirstName.equals(actualFirstName) || !expectedLastName.equals(actualLastName)) {
-                    throw new AssertionError("Database record mismatch: Expected (" +
-                            expectedFirstName + " " + expectedLastName + "), but found (" +
-                            actualFirstName + " " + actualLastName + ")");
-                }
-            } else {
-                throw new AssertionError("No employee record found with ID: " + empId);
+    @Then("I should get the employee record with name {string}")
+    public void i_should_get_the_employee_record_with_name(String expectedName) throws SQLException {
+        if (resultSet.next()) {
+            String actualName = resultSet.getString("Livia");
+            if (!expectedName.equals(actualName)) {
+                throw new AssertionError("Expected name: " + expectedName + ", but got: " + actualName);
             }
+        } else {
+            throw new AssertionError("No employee record found for ID: " + employeeId);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Database connection or query failed.");
         }
     }
 }
