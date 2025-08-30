@@ -63,6 +63,10 @@ public class CommonMethods extends PageInitialiser {
         element.clear();
         element.sendKeys(text);
     }
+    public WebDriverWait getWait(){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds((Constants.EXPLICIT_WAIT)));
+        return wait;
+    }
 
     public void selectFromDropDown(WebElement dropDown, String visibleText){
         Select sel =new Select(dropDown);

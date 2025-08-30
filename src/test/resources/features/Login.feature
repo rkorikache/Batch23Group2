@@ -1,6 +1,6 @@
 Feature: Login feature
 
-  @Login
+  @LoginAsAdmin @all
   Scenario: Valid admin login
     When user enters username and password
     And user clicks on login button

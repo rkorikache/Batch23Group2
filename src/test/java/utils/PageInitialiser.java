@@ -11,6 +11,7 @@ public class PageInitialiser {
     public static EmployeeDetailsPage employeeDetailsPage;
     public static CreateEmployeeLoginDetailsPage createEmployeeLoginDetailsPage;
     public static AddEmployeeMembershipDetailsPage addEmployeeMembershipDetailsPage;
+    public static UploadProfilePicturePage uploadProfilePhoto;
 
     public static void initializePageObjects(){
         loginPage = new LoginPage();
@@ -19,6 +20,7 @@ public class PageInitialiser {
         employeeDetailsPage = new EmployeeDetailsPage();
         createEmployeeLoginDetailsPage = new CreateEmployeeLoginDetailsPage();
         addEmployeeMembershipDetailsPage = new AddEmployeeMembershipDetailsPage();
+        uploadProfilePhoto = new UploadProfilePicturePage();
 
 
     }

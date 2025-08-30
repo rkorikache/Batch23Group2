@@ -15,5 +15,10 @@ public class APIConstants {
     public static final String HEADER_CONTENT_TYPE_KEY = "Content-Type";
     public static final String HEADER_CONTENT_TYPE_VALUE = "application/json";
     public static final String HEADER_AUTHORIZATION_KEY = "Authorization";
+    public  static  final String CONFIG_FILE_PATH= System.getProperty("user.dir")+"/src/test/resources/config/config.properties";
+    public static final int EXPLICIT_WAIT = 10;
+    public static final String SCREENSHOT_FILEPATH = System.getProperty("user.dir")+"/screenshots/";
+    public static final String TEST_DATA_PATH = System.getProperty("user.dir")+ "/src/test/resources/testData/";
+
 
 }
