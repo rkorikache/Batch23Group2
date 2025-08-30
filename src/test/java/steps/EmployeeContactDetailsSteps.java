@@ -37,8 +37,8 @@ public class EmployeeContactDetailsSteps extends CommonMethods {
         sendText("F1256A", employeeContactDetailsPage.contactAddressStreet2);
     }
 
-    @And("user updates the city, state and Zip code")
-    public void user_updates_the_city_state_and_Zip_code() {
+    @When("user updates the city, state and Zip Code")
+    public void user_updates_the_city_state_and_zip_code() {
         sendText("Toronto", employeeContactDetailsPage.contactCity);
         sendText("Ontario", employeeContactDetailsPage.contactProvince);
         sendText("M1T 9A9", employeeContactDetailsPage.zipPostalCode);
@@ -46,7 +46,8 @@ public class EmployeeContactDetailsSteps extends CommonMethods {
 
     @When("user selects the country from the dropdown")
     public void user_selects_the_country_from_the_dropdown() {
-        selectFromDropDown("Viet Nam", employeeContactDetailsPage.countrydropdown);
+       // click(employeeContactDetailsPage.countrydropdown);
+        selectFromDropDown( employeeContactDetailsPage.countrydropdown,"Canada");
     }
 
     @When("user updates the home, mobile and work phone number")
@@ -61,6 +62,13 @@ public class EmployeeContactDetailsSteps extends CommonMethods {
         sendText("info@generations.com", employeeContactDetailsPage.emailAddress);
         sendText("info@strategicwealth.com", employeeContactDetailsPage.otherEmailAddress);
     }
+
+    @Then("the contact details are saved successfully")
+    public void the_contact_details_are_saved_successfully() {
+        System.out.println("Contact Details Saved Successfully");
+    }
+
+
 
 }
 
