@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.en.And;
 import pages.EmployeeDetailsPage;
 import pages.LoginPage;
 import utils.CommonMethods;
@@ -85,6 +86,11 @@ public class EmployeeDetailsSteps extends CommonMethods {
     @Then("personal information is saved successfully")
     public void personal_information_is_saved_successfully() {
         System.out.println("Personal information is saved successfully.");
+    }
+
+    @And("user enters employee name on the Employee Name search textbox")
+    public void userEntersEmployeeNameOnTheEmployeeNameSearchTextbox() {
+
     }
 }
 

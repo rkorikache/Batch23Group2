@@ -3,6 +3,7 @@ package utils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.v85.page.Page;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -28,9 +29,9 @@ public class CommonMethods extends PageInitialiser {
         switch (ConfigReader.read("browser")){
 
             case "Chrome":
-                //ChromeOptions options = new ChromeOptions();
-                // options.addArguments("--headless");
-                driver=new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                driver=new ChromeDriver(options);
                 break;
             case "FireFox":
                 driver=new FirefoxDriver();
@@ -62,6 +63,10 @@ public class CommonMethods extends PageInitialiser {
         element.clear();
         element.sendKeys(text);
     }
+    public WebDriverWait getWait(){
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds((Constants.EXPLICIT_WAIT)));
+        return wait;
+    }
 
     public void selectFromDropDown(WebElement dropDown, String visibleText){
         Select sel =new Select(dropDown);
@@ -83,6 +88,9 @@ public class CommonMethods extends PageInitialiser {
 
     public void waitForElementToBeClickAble(WebElement element){
         getwait().until(ExpectedConditions.elementToBeClickable(element));
+    }
+    public void waitForElementToBeVisible(WebElement element){
+        getwait().until(ExpectedConditions.visibilityOf(element));
     }
 
     public void click(WebElement element){

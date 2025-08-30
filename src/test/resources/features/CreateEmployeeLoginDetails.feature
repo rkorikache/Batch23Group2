@@ -9,9 +9,7 @@ Feature: Create employee login details
     When user enters username and password
     And user clicks on login button
     Then user is successfully logged in
-    When admin user clicks on on PIM option
     When user clicks on add employee option
-
 
   @createLogin @all
   Scenario Outline: Successfully create login details for a new employee
