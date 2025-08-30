@@ -64,7 +64,7 @@ public class UploadProfilePictureSteps extends CommonMethods {
     public void anAlertWithMessageShouldBeDisplayed(String errorMessage) {
 
         waitForElementToBeVisible(uploadProfilePhoto.promptError);
-        Assert.assertTrue(errorMessage.contains("Failed to Save: File Type Not Allowed"));
+        Assert.assertTrue(uploadProfilePhoto.promptError.getText().contains(errorMessage));
         getWait();
 
 

@@ -13,7 +13,8 @@ Feature: Upload Profile Picture
     And  the user enters "Cat" and "Puppy"
     And  the user clicks save button
     Then the profile picture should be updated successfully
-    @InvalidFiles @all
+
+  @InvalidFiles @all
   Scenario Outline: Upload profile picture with invalid files
     When the user enters "<firstname>" and "<lastname>"
     And the user uploads "<filename>"

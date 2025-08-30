@@ -7,27 +7,27 @@ Feature: Add employee scenarios
     When admin user clicks on on PIM option
     And user clicks on Add employee option
 
-  @Diana @withoutID
+  @Diana @withoutID @all
   Scenario: Without Id
     And user enters firstname and lastname
     And user clicks on save button
     Then employee added successfully
 
-  @Diana @withID
+  @Diana @withID @all
   Scenario: With manually added employeeID
     And user enters firstname, middlename and lastname
     And enters an employeeId manually
     And user clicks on save button
     Then employee added successfully
 
-  @Diana @errorMsg
+  @Diana @errorMsg @all
   Scenario: Error message appearance
     When user enters only firstname
     And user clicks on save button
     Then an error message should be appear
 
 
-  @Diana @Verify
+  @Diana @Verify @all
   Scenario: Verify employee record from the database
     And user enters firstname and lastname
     And user captures the employee id
