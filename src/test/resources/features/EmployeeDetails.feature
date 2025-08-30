@@ -4,7 +4,7 @@ Feature: Change Employee Personal Details
     When user enters username and password
     And user clicks on login button
     Then user is successfully logged in
-    When admin user clicks on PIM option
+    When admin user clicks on on PIM option
 
 
 

@@ -41,8 +41,9 @@ public class EmployeeDetailsSteps extends CommonMethods {
 
     @When("user selects the employee from the search result")
     public void user_selects_the_employee_from_the_search_result() {
-        WebElement result = driver.findElement(By.xpath("//a[text()='Nhu Nguyen']\n"));
-        click(result);
+        //WebElement result = driver.findElement(By.xpath("//a[text()='Nhu Nguyen']\n"));
+        //click(result);
+        click(employeeDetailsPage.employeeIDbtn);
     }
 
     @Then("user successfully accesses user personal details")
@@ -53,7 +54,7 @@ public class EmployeeDetailsSteps extends CommonMethods {
     @When("user clicks on the edit button")
     public void user_clicks_on_the_edit_button() throws InterruptedException {
       //  Thread.sleep(3000);
-        click(employeeDetailsPage.employeeIDbtn);
+
         click(employeeDetailsPage.editButton);
 
     }
