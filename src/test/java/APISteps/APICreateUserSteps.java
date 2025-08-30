@@ -10,12 +10,17 @@ import utils.APIConstants;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class APICreateUserSteps {
 
     String baseURI = RestAssured.baseURI = APIConstants.baseURI;
     RequestSpecification request;
     Response response;
+    private String name;
+    private String email;
+    private String password;
 
 
    @Given("the user provides valid registration details with name {string}, email {string} and password {string} and send request")
@@ -146,5 +151,8 @@ public class APICreateUserSteps {
     }
 
     }
+
+
+
 
 

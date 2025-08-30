@@ -28,3 +28,5 @@ Feature: User Registration API
   Scenario: Registration fails when name is missing
     Given the user provides registration details with empty name "" and email "abdel@gmail.com" and password "secret123" and send request
     Then the API respond with "condition" set to "error" and "data" set to "Please fill all inputs"
+
+
