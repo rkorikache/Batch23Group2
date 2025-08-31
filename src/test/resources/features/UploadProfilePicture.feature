@@ -25,4 +25,4 @@ Feature: Upload Profile Picture
       | firstname| lastname | filename                  | errorMessage                             |
       | catttt   | leooo    | invalid_file.txt          | Failed to Save: File Type Not Allowed    |
       | leooo    | catttt   | largeDimensions_image.JPG | Failed to Save: File Size Exceeded       |
-      | leocatt  | cattleoo | largesize_Image.JPG       |  Failed to Save: File Size Exceeded      |
+      | leocatt  | cattleoo | largesize_Image.jpg       |  Failed to Save: File Size Exceeded      |
