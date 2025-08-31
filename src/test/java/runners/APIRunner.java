@@ -15,7 +15,8 @@ import org.junit.runner.RunWith;
         dryRun = true,
         tags = "@api",
         //pretty plugin prints all the steps in console
-        plugin = {"pretty"}
+        plugin = {"pretty", "html:target/cucumber.html", "json:target/cucumber.json",
+                "rerun:target/failed.txt"}
 )
 
 
