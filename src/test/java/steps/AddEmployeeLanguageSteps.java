@@ -13,16 +13,6 @@ import java.time.Duration;
 
 public class AddEmployeeLanguageSteps extends CommonMethods {
 
-    WebDriver driver;
-
-    @Given("user is navigated to HRMS application.")
-    public void user_is_navigated_to_hrms_application() {
-
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/dashboard");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    }
     @When("user enters username and password.")
     public void user_enters_username_and_password() {
 
