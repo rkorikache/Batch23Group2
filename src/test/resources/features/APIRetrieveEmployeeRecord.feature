@@ -7,7 +7,7 @@ Feature: Retrieve Employee Record
     Given the API base URL is set
     And a valid authentication token is generated
 
-@RER1
+  @RER1 @api
   Scenario: Retrieve employee details with a valid employee ID
     When the user sends a GET request to retrieve employee with ID "12345"
     Then the API response status code should be 200
@@ -19,7 +19,8 @@ Feature: Retrieve Employee Record
     And the response should contain "emp_gender"
     And the response should contain "emp_job_title"
     And the response should contain "emp_status"
-@RER2
+
+  @RER2 @api
   Scenario: Retrieve employee details with an invalid employee ID
     When the user sends a GET request to retrieve employee with ID "99999"
     Then the API response status code should be 404

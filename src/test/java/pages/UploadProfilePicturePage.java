@@ -27,4 +27,9 @@ public class UploadProfilePicturePage extends CommonMethods {
         PageFactory.initElements(driver, this);
     }
 
+
+
+
+
+
 }

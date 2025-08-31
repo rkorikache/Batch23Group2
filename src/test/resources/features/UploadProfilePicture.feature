@@ -4,7 +4,7 @@ Feature: Upload Profile Picture
     When user enters username and password
     And user clicks on login button
     Then user is successfully logged in
-    When admin user clicks on on PIM option
+    When user clicks on PIM option.
     And user clicks on add employee option.
 
   @ValidPicture @all
@@ -13,6 +13,7 @@ Feature: Upload Profile Picture
     And  the user enters "Cat" and "Puppy"
     And  the user clicks save button
     Then the profile picture should be updated successfully
+
   @InvalidFiles @all
   Scenario Outline: Upload profile picture with invalid files
     When the user enters "<firstname>" and "<lastname>"

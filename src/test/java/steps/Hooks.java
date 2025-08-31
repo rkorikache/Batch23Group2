@@ -10,8 +10,8 @@ public class Hooks extends CommonMethods {
 
     @Before
     public void start() {
-        openBrowserAndLaunchApplication();             // ✅ Initializes the driver
-        PageInitialiser.initializePageObjects();       // ✅ Initializes page objects
+        openBrowserAndLaunchApplication();
+        PageInitialiser.initializePageObjects();
     }
 
     @After

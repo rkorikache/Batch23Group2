@@ -7,7 +7,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import pages.CreateEmployeeLoginDetailsPage;
 import utils.CommonMethods;
 import utils.DBUtils;
 
@@ -16,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CreateEmployeeLoginDetailsSteps extends CommonMethods {
-
-    CreateEmployeeLoginDetailsPage createEmployeeLoginDetailsPage = new CreateEmployeeLoginDetailsPage();
 
     String expectedUN;
     String expectedFN;

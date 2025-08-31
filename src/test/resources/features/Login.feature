@@ -1,10 +1,6 @@
 Feature: Login feature
 
-  Background:
-    #Given the user is on the HRMs login page
-
-
-  @Login
+  @LoginAsAdmin @all
   Scenario: Valid admin login
     When user enters username and password
     And user clicks on login button

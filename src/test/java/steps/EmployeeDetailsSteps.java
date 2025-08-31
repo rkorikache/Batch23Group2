@@ -16,6 +16,13 @@ import java.time.Duration;
 
 public class EmployeeDetailsSteps extends CommonMethods {
 
+    EmployeeDetailsPage employeeDetailsPage = new EmployeeDetailsPage();
+
+    @When("user clicks on PIM option")
+    public void user_clicks_on_pim_option() {
+        waitAndClick(By.id("menu_pim_viewPimModule"), 30);
+    }
+
     @When("user clicks on Employee List")
     public void user_clicks_on_employee_list() {
         WebElement employeeList = driver.findElement(By.id("menu_pim_viewEmployeeList"));
@@ -32,7 +39,6 @@ public class EmployeeDetailsSteps extends CommonMethods {
     public void user_clicks_on_the_search_button() {
         click(employeeDetailsPage.searchEmployeeDetailsBtn);
     }
-
     @When("user enters firstname, lastname, and employeeId")
     public void user_enters_firstname_lastname_and_employee_id() {
         sendText("Nhu Nguyen", employeeDetailsPage.searchEmployeeName);
@@ -40,11 +46,11 @@ public class EmployeeDetailsSteps extends CommonMethods {
     }
 
 
+
     @When("user selects the employee from the search result")
     public void user_selects_the_employee_from_the_search_result() {
-        //WebElement result = driver.findElement(By.xpath("//a[text()='Nhu Nguyen']\n"));
-        //click(result);
-        click(employeeDetailsPage.employeeIDbtn);
+        WebElement result = driver.findElement(By.xpath("//a[text()='119798A']"));
+        click(result);
     }
 
     @Then("user successfully accesses user personal details")
@@ -53,18 +59,12 @@ public class EmployeeDetailsSteps extends CommonMethods {
     }
 
     @When("user clicks on the edit button")
-    public void user_clicks_on_the_edit_button() throws InterruptedException {
-      //  Thread.sleep(3000);
-
+    public void user_clicks_on_the_edit_button() {
         click(employeeDetailsPage.editButton);
-
     }
 
-
-
     @When("user edits firstname, middlename, and lastname")
-    public void user_edits_firstname_middlename_and_lastname() throws InterruptedException {
-        Thread.sleep(2000);
+    public void user_edits_firstname_middlename_and_lastname() {
         sendText("Trang", employeeDetailsPage.editFirstName);
         sendText("Nhu", employeeDetailsPage.editMiddleName);
         sendText("Pham", employeeDetailsPage.editLastName);
@@ -73,7 +73,7 @@ public class EmployeeDetailsSteps extends CommonMethods {
     @When("user edits gender, nationality, and marital status")
     public void user_edits_gender_nationality_and_marital_status() {
         click(employeeDetailsPage.clickFemale);
-        selectFromDropDown(employeeDetailsPage.NationalityDropDown, "Russian");
+        selectFromDropDown(employeeDetailsPage.NationalityDropDown, "Taiwanese");
         selectFromDropDown(employeeDetailsPage.maritalStatusDropDown, "Single");
 
     }
@@ -93,4 +93,3 @@ public class EmployeeDetailsSteps extends CommonMethods {
 
     }
 }
-

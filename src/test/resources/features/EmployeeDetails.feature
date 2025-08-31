@@ -8,7 +8,7 @@ Feature: Change Employee Personal Details
 
 
 
-  @edit
+  @edit @empDetail @empContactDetail @all
   Scenario: Employee edits personal information
     And user clicks on Employee List
     And user clicks on Employee Name

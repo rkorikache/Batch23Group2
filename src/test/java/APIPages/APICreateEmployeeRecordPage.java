@@ -1,6 +1,16 @@
 package APIPages;
 
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+
 public class APICreateEmployeeRecordPage {
+
     String baseURI = RestAssured.baseURI = "http://hrm.syntaxtechs.net/syntaxapi/api";
     String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NTU0NDA3NjIsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTc1NTQ4Mzk2MiwidXNlcklkIjoiNzMxNyJ9.Co-aXFlL9lEbRHSrZ7uMaCnsJqkxOpQZLVVzButQTpE";
     static String employee_id;
@@ -40,4 +50,3 @@ public class APICreateEmployeeRecordPage {
         System.out.println(employee_id);
     }
 }
-

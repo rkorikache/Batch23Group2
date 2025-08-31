@@ -11,9 +11,7 @@ Feature: Change Employee Contact Details
     And user clicks on the search button
     And user selects the employee from the search result
 
-
-
-
+  @empContactDetail @all
   Scenario: Employee updates contact details successfully
     When the employee navigates to the Contact Details section
     And user updates address line1 and line2

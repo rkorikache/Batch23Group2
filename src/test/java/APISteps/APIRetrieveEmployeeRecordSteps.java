@@ -6,13 +6,19 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import utils.APIConstants;
+import utils.APIPayloadConstant;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class APIRetrieveEmployeeRecordSteps {
 
+    RequestSpecification request;
     Response response;
+    String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NTYzNDYwMTcsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTc1NjM4OTIxNywidXNlcklkIjoiNzQxOSJ9.x-qp8i6VIUfA_aPYsEb0EJWvY3WOHthAzeetybiZGKc";
 
     @Given("the API base URL is set")
     public void the_api_base_url_is_set() {
@@ -21,9 +27,12 @@ public class APIRetrieveEmployeeRecordSteps {
 
     @Given("a valid authentication token is generated")
     public void a_valid_authentication_token_is_generated() {
-        RestAssured.requestSpecification = new RequestSpecBuilder()
-                .addHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NTYzMzUzNjMsImlzcyI6ImxvY2FsaG9zdCIsImV4cCI6MTc1NjM3ODU2MywidXNlcklkIjoiNzQyNCJ9.iZ2IBBT6JTlGcLx4ygR0Rgq__b8ivr-Cpi-2PSZqMsU")
-                .build();
+        request = given().header(APIConstants.HEADER_CONTENT_TYPE_KEY, APIConstants.HEADER_CONTENT_TYPE_VALUE).
+                body(APIPayloadConstant.jsonPayloadGenerateJWT());
+
+        response = request.when().post("/generateToken.php");
+
+        token = "Bearer " + response.jsonPath().getString("token");
     }
 
     @When("the user sends a GET request to retrieve employee with ID {string}")

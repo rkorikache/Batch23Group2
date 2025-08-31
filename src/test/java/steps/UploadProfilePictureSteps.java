@@ -28,8 +28,8 @@ public class UploadProfilePictureSteps extends CommonMethods {
 
     @When("the user uploads a picture {string} with maximum size of {string} and dimensions {string}")
     public void the_user_uploads_a_picture_with_maximum_size_of_and_dimensions(String string, String string2, String string3) {
-        String ProfilePicPath = Constants.TEST_DATA_PATH + "ValidProfilePic.JPG";
-        System.out.println("ProfilePicPath is :" + ProfilePicPath);
+        String ProfilePicPath= Constants.TEST_DATA_PATH+"ValidProfilePic.JPG";
+        System.out.println("ProfilePicPath is :" +ProfilePicPath);
         uploadProfilePhoto.ProfilePhotoUploadButton.sendKeys(ProfilePicPath);
     }
 
@@ -53,20 +53,23 @@ public class UploadProfilePictureSteps extends CommonMethods {
 
     @When("the user uploads {string}")
     public void the_user_uploads(String filename) {
-        String ProfilePicPath = Constants.TEST_DATA_PATH + filename;
-        System.out.println("ProfilePicPath is :" + ProfilePicPath);
+        String ProfilePicPath= Constants.TEST_DATA_PATH+filename;
+        System.out.println("ProfilePicPath is :" +ProfilePicPath);
         uploadProfilePhoto.ProfilePhotoUploadButton.sendKeys(ProfilePicPath);
     }
+
 
 
     @Then("an alert with message {string} should be displayed")
     public void anAlertWithMessageShouldBeDisplayed(String errorMessage) {
 
         waitForElementToBeVisible(uploadProfilePhoto.promptError);
-        Assert.assertTrue(errorMessage.contains("Failed to Save: File Type Not Allowed"));
-        getwait();
+        Assert.assertTrue(uploadProfilePhoto.promptError.getText().contains(errorMessage));
+        getWait();
 
 
     }
 
 }
+
+

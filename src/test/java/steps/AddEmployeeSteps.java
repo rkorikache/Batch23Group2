@@ -1,7 +1,5 @@
 package steps;
 
-import io.cucumber.java.en.Given;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.LoginPage;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,7 +10,6 @@ import utils.ConfigReader;
 
 
 import java.sql.*;
-import java.time.Duration;
 
 public class AddEmployeeSteps extends CommonMethods {
 
@@ -20,6 +17,22 @@ public class AddEmployeeSteps extends CommonMethods {
     AddEmployeePage addEmployeePage = new AddEmployeePage();
     LoginPage loginPage = new LoginPage();
 
+    @When("user enters valid username and password")
+    public void user_enters_valid_username_and_password() {
+        sendText(ConfigReader.read("username"), loginPage.userNameField);
+        sendText(ConfigReader.read("password"), loginPage.passwordField);
+
+    }
+
+    @When("user clicks on login button in add employee flow")
+    public void user_clicks_on_login_button_add_employee() {
+        loginPage.loginButton.click();
+    }
+
+    @Then("user is able to see dashboard page")
+    public void user_is_able_to_see_dashboard_page() {
+        System.out.println("Logged in");
+    }
 
     @When("admin user clicks on on PIM option")
     public void admin_user_clicks_on_pim_option() {

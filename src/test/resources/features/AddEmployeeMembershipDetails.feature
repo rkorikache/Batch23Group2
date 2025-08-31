@@ -5,10 +5,9 @@ Feature: Manage membership details on employee profile
   So that my HRMS profile is accurate
 
   Background:
-    When user enters username and password
+     #Given user is navigated to HRMS application
+    When user enters employee username and password
     And user clicks on login button
-    Then user is successfully logged in
-    When admin user clicks on on PIM option
     Then the user "Rabab" is successfully logged in
 
   @addMembership @all

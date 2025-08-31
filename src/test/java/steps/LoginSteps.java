@@ -10,12 +10,12 @@ import utils.CommonMethods;
 import java.time.Duration;
 
 public class LoginSteps extends CommonMethods {
-    @Given("the user is on the HRMs login page")
-    public void the_user_is_on_the_hr_ms_login_page() {
+    @Given("user is navigated to HRMS application")
+    public void user_is_navigated_to_hrms_application() {
         driver = new ChromeDriver();
-        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
         driver.manage().window().maximize();
+        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
     @When("user enters username and password")
     public void user_enters_username_and_password() {
@@ -37,6 +37,5 @@ public class LoginSteps extends CommonMethods {
         Assert.assertEquals("Welcome Admin", value);
         System.out.println("Test passed");
     }
-    }
-
+}
 
