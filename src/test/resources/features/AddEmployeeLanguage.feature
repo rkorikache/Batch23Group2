@@ -10,7 +10,7 @@ Feature: Adding Language to Employee in HRM Portal
     And user clicks on Employee List option.
 
 
-    @AddLanguage @all
+    @AddLanguage @all @Shaqayeq
     Scenario: Add language to an employee
         When user clicks on an employee
         When user clicks on the Qualifications tab
